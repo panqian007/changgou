@@ -1,0 +1,60 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+              allowedOrigins: "*" #跨域处理 允许所有的域
+              allowedMethods: # 支持的方法
+                - GET
+                - POST
+                - PUT
+                - DELETE
+      routes:
+                  - id: changgou_goods_route
+#                    uri: http://localhost:18081
+                    uri: lb://goods
+                    predicates:
+#                    - Host=panqian.demo.com**
+                    - Path=/api/brand/**
+#                    - Path=/**
+                    filters:
+                     - StripPrefix=1
+#                     - PrefixPath=/brand
+                     - name: RequestRateLimiter #请求数限流 名字不能随便写 ，使用默认的facatory
+                       args:
+                         key-resolver: "#{@ipKeyResolver}"
+                         redis-rate-limiter.replenishRate: 1
+                         redis-rate-limiter.burstCapacity: 1
+
+                  - id: changgou_user_route
+#                    uri: http://localhost:18081
+                    uri: lb://user
+                    predicates:
+#                    - Host=panqian.demo.com**
+                    - Path=/api/user/**
+#                    - Path=/**
+                    filters:
+                     - StripPrefix=1
+#                     - PrefixPath=/brand
+  application:
+    name: gateway-web
+    #Redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+server:
+  port: 8001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka
+  instance:
+    prefer-ip-address: true
+management:
+  endpoint:
+    gateway:
+      enabled: true
+    web:
+      exposure:
+        include: true
