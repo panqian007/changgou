@@ -51,6 +51,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>aspose-words</groupId>-->
+<!--            <artifactId>aspose-words</artifactId>-->
+<!--            <version>17.4.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/src/main/resources/lib/aspose-words-17.4.0-jdk16.jar</systemPath>-->
+<!--        </dependency>-->
 
     </dependencies>
 

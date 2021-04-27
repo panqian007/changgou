@@ -20,18 +20,19 @@ public class IOTest {
 //                fis.close();
 //
 //            }
-        String str= "and or";
-        StringBuffer buffer = new StringBuffer("and or");
-        String eee = buffer.toString().substring(buffer.length()-2,buffer.length());
-        int i = 1;
-       try {
-           i = buffer.lastIndexOf("or");
-       }catch (Exception e){
-
-       }
-       String sss =buffer.toString().substring(0,i);
-       sss+=")";
-       String shtr1 = str.substring(i,i+2);
+        String str= "and_or";
+//        StringBuffer buffer = new StringBuffer("and or");
+//        String eee = buffer.toString().substring(buffer.length()-2,buffer.length());
+//        int i = 1;
+//       try {
+//           i = buffer.lastIndexOf("or");
+//       }catch (Exception e){
+//
+//       }
+//       String sss =buffer.toString().substring(0,i);
+//       sss+=")";
+//       String shtr1 = str.substring(i,i+2);
+        String eee = str.substring(0,str.indexOf("_"));
         System.out.println(eee);
     }
 }
