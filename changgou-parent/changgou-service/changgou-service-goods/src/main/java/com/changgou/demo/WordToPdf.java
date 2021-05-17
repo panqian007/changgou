@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class WordToPdf {
     public static void main(String[] args) throws Exception {
-        doc2pdf("D:\\GoogleDownloads\\doct.doc","D:\\GoogleDownloads\\pdft.pdf");
+        doc2pdf("D:\\GoogleDownloads\\doct.doc","D:\\GoogleDownloads\\pdf.pdf");
 
     }
 
@@ -55,7 +55,7 @@ public class WordToPdf {
             File file = new File(outPath); // 新建一个空白pdf文档
             os = new FileOutputStream(file);
             Document doc = new Document(inPath); // Address是将要被转化的word文档
-            insertWatermarkText(doc,"panqian");
+            insertWatermarkText(doc,"潘谦007");
             doc.save(os, SaveFormat.PDF);
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +69,7 @@ public class WordToPdf {
             }
         }
     }
-    private static void insertWatermarkText(Document doc, String watermarkText) throws Exception
+    public static void insertWatermarkText(Document doc, String watermarkText) throws Exception
     {
 
         Shape watermark = new Shape(doc, ShapeType.TEXT_PLAIN_TEXT);

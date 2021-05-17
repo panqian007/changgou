@@ -4,6 +4,10 @@ package com.changgou.controller;/**
  * @Version 1.0.0
  */
 
+import com.aspose.words.Document;
+import com.aspose.words.License;
+import com.aspose.words.SaveFormat;
+import com.changgou.demo.WordToPdf;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
 import com.changgou.goods.pojo.Brand;
@@ -13,6 +17,9 @@ import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -26,6 +33,42 @@ import java.util.List;
 public class BrandController {
     @Autowired
     private BrandService brandService;
+
+    @ResponseBody
+    @RequestMapping(value = "/showPdf", method = {RequestMethod.POST, RequestMethod.GET})
+    public void showPpf(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        InputStream fis =null;
+        OutputStream os = null;
+        WordToPdf.doc2pdf("D:\\GoogleDownloads\\doct.doc","D:\\GoogleDownloads\\pdf.pdf");
+        fis = new FileInputStream("D:\\GoogleDownloads\\pdft.pdf");
+        byte[] b = new byte[1024];
+        response.setContentType("application/pdf");
+        os = response.getOutputStream();
+        while ((fis.read(b)) != -1) {
+            os.write(b);
+        }
+
+        os.close();
+        fis.close();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/showImg", method = {RequestMethod.POST, RequestMethod.GET})
+    public void showImg(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        File file = new File("D:\\GoogleDownloads\\t1.JPG");
+        FileInputStream fis =null;
+        OutputStream os = null;
+        fis = new FileInputStream(file);
+        byte[] b = new byte[1024];
+        response.setContentType("application/img");
+        os = response.getOutputStream();
+        while ((fis.read(b)) != -1) {
+            os.write(b);
+        }
+        os.close();
+        fis.close();
+    }
 
     @PostMapping("/search/{page}/{size}")
     public Result<PageInfo<Brand>> findPage(@RequestBody Brand brand,@PathVariable(value = "page")Integer page,
